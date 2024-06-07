@@ -1,0 +1,44 @@
+import os
+import csv
+
+csvpath = os.path.join('Resources', 'budget_data.csv')
+
+total_months = 0
+net_total = 0
+changes = []
+previous_amount = None
+max_increase = 0
+max_increase_month = ""
+max_decrease = 0 
+max_decrease_month = ""
+
+with open(csvpath, encoding='UTF-8') as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=",")
+
+    header = next(csvreader)
+    print(f"Header: {header}")
+
+    for row in csvreader:
+        total_months += 1
+        amount = int(row[1])
+        net_total += amount
+
+        if previous_amount is not None:
+            change = amount - previous_amount
+            changes.append(change)
+            if change > max_increase:
+                max_increase = change
+                max_increase_month = row[0]
+            elif change < max_decrease:
+                max_decrease = change
+                max_decrease_month = row[0]
+
+        previous_amount = amount
+
+average = sum(changes) / (total_months - 1)
+
+print(f"Total Months: {total_months}")
+print(f"Net Total: ${net_total}")
+print(f"Average Change: ${average:.2f}")
+print(f"Greatest Increase in Profits: {max_increase} (Month: {max_increase_month})")
+print(f"Greatest Decrease in Profits: {max_decrease} (Month: {max_decrease_month})")
