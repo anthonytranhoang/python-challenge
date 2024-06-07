@@ -42,4 +42,3 @@ print(f"Net Total: ${net_total}")
 print(f"Average Change: ${average:.2f}")
 print(f"Greatest Increase in Profits: {max_increase} (Month: {max_increase_month})")
 print(f"Greatest Decrease in Profits: {max_decrease} (Month: {max_decrease_month})")
-
